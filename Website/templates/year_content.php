@@ -35,7 +35,7 @@
 
 
     $sql_years = "SELECT year, count(*) as artikelen FROM Articles WHERE year = '$year' AND category = '$sub' GROUP BY year";
-    $sql_keywords = "SELECT keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =artikelen.id_nr
+    $sql_keywords = "SELECT keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =Articles.id_nr
                     WHERE Articles.year = '$year' AND Articles.category = '$sub' GROUP BY Keywords.keyword";
     $sql_bow = "SELECT year, bag_of_words FROM Articles WHERE year = '$year' AND category = '$sub' GROUP BY year";
 
