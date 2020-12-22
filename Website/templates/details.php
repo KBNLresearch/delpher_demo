@@ -69,40 +69,40 @@ if (!empty($year)){
 if (!empty($_POST['nm'])){
     // If 'no selection' is on
     if ($nm == 'alle') {
-        $sql_csv = "SELECT identifier, papertitle, date, bag_of_words FROM artikelen WHERE artikelen.year = '$year' AND category = '$sub'";
-        $sql_bow = "SELECT bag_of_words FROM artikelen WHERE category = '$sub' and year = '$year'";
-        $sql_keywords = "SELECT keywords, count(*) as keyword_count FROM keywords INNER JOIN artikelen ON keywords.id_nr =artikelen.id_nr
-                    WHERE artikelen.year = '$year' AND artikelen.category = '$sub' GROUP BY keywords.keywords";
-        $sql_subtotal = "SELECT count(DISTINCT keywords.identifier) as total FROM keywords INNER JOIN artikelen ON keywords.id_nr=artikelen.id_nr
-                    WHERE artikelen.year = $year AND artikelen.category = '$sub'";
+        $sql_csv = "SELECT identifier, papertitle, date, bag_of_words FROM Articles WHERE Articles.year = '$year' AND category = '$sub'";
+        $sql_bow = "SELECT bag_of_words FROM Articles WHERE category = '$sub' and year = '$year'";
+        $sql_keywords = "SELECT keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =Articles.id_nr
+                    WHERE Articles.year = '$year' AND Articles.category = '$sub' GROUP BY Keywords.keyword";
+        $sql_subtotal = "SELECT count(DISTINCT Keywords.identifier) as total FROM Keywords INNER JOIN Articles ON Keywords.id_nr=Articles.id_nr
+                    WHERE Articles.year = $year AND Articles.category = '$sub'";
         $lines = file('../csv/stopwords.csv', FILE_IGNORE_NEW_LINES);
     }
     // if a keyword is selected
     else{
-        $sql_csv = "SELECT artikelen.identifier, artikelen.papertitle, artikelen.date, artikelen.bag_of_words 
-                    FROM artikelen INNER JOIN keywords ON keywords.id_nr = artikelen.id_nr
-                    WHERE artikelen.year = '$year' AND artikelen.category = '$sub' AND keywords.keywords = '$nm'"; 
-        $sql_bow = "SELECT artikelen.bag_of_words FROM artikelen INNER JOIN keywords ON keywords.id_nr=artikelen.id_nr
-                    WHERE artikelen.year = '$year' AND artikelen.category = '$sub' AND keywords.keywords = '$nm'";
-        $sql_keywords = "SELECT keywords.keywords, count(*) as keyword_count FROM keywords INNER JOIN artikelen ON keywords.id_nr =artikelen.id_nr
-                    WHERE artikelen.year = $year AND artikelen.category = '$sub' AND keywords.id_nr in (select keywords.id_nr from keywords where keywords.keywords = '$nm') 
-                    GROUP BY keywords.keywords";
-        $sql_wordtree = "SELECT artikelen.identifier, keywords.keywords FROM keywords INNER JOIN artikelen ON keywords.id_nr=artikelen.id_nr
-                    WHERE artikelen.year = $year AND artikelen.category = '$sub' AND keywords.id_nr in (select keywords.id_nr from keywords where keywords.keywords = '$nm') 
-                    order by keywords";
-        $sql_subtotal = "SELECT count(DISTINCT keywords.identifier) as total FROM keywords INNER JOIN artikelen ON keywords.id_nr=artikelen.id_nr
-                    WHERE artikelen.year = '$year' AND artikelen.category = '$sub' AND keywords.keywords = '$nm' ";
+        $sql_csv = "SELECT Articles.identifier, Articles.papertitle, Articles.date, Articles.bag_of_words 
+                    FROM Articles INNER JOIN Keywords ON Keywords.id_nr = Articles.id_nr
+                    WHERE Articles.year = '$year' AND Articles.category = '$sub' AND Keywords.keyword = '$nm'"; 
+        $sql_bow = "SELECT Articles.bag_of_words FROM Articles INNER JOIN Keywords ON Keywords.id_nr=Articles.id_nr
+                    WHERE Articles.year = '$year' AND Articles.category = '$sub' AND Keywords.keyword = '$nm'";
+        $sql_keywords = "SELECT Keywords.keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =Articles.id_nr
+                    WHERE Articles.year = $year AND Articles.category = '$sub' AND Articles.id_nr in (select Keywords.id_nr from Keywords where Keywords.keyword = '$nm') 
+                    GROUP BY Keywords.keyword";
+        $sql_wordtree = "SELECT Articles.identifier, Keywords.keyword FROM Keywords INNER JOIN Articles ON Keywords.id_nr=Articles.id_nr
+                    WHERE Articles.year = '$year' AND Articles.category = '$sub' AND Keywords.id_nr in (select Keywords.id_nr from Keywords where Keywords.keyword = '$nm') 
+                    order by keyword";
+        $sql_subtotal = "SELECT count(DISTINCT Keywords.identifier) as total FROM Keywords INNER JOIN Articles ON Keywords.id_nr=Articles.id_nr
+                    WHERE Articles.year = '$year' AND Articles.category = '$sub' AND Keywords.keyword = '$nm' ";
         $lines = file('../csv/stopwords.csv', FILE_IGNORE_NEW_LINES);
     }
 }
 // If there is not yet a button clicked
 else {
-    $sql_csv = "SELECT identifier, papertitle, date, bag_of_words FROM artikelen WHERE artikelen.year = '$year' AND category = '$sub'";
-    $sql_bow = "SELECT bag_of_words FROM artikelen WHERE category = '$sub' and year = '$year'";
-    $sql_keywords = "SELECT keywords, count(*) as keyword_count FROM keywords INNER JOIN artikelen ON keywords.id_nr =artikelen.id_nr
-            WHERE artikelen.year = '$year' AND artikelen.category = '$sub' GROUP BY keywords.keywords";
-    $sql_subtotal = "SELECT count(DISTINCT keywords.identifier) as total FROM keywords INNER JOIN artikelen ON keywords.id_nr=artikelen.id_nr
-            WHERE artikelen.year = $year AND artikelen.category = '$sub'";
+    $sql_csv = "SELECT identifier, papertitle, date, bag_of_words FROM Articles WHERE Articles.year = '$year' AND category = '$sub'";
+    $sql_bow = "SELECT bag_of_words FROM Articles WHERE category = '$sub' and year = '$year'";
+    $sql_keywords = "SELECT keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =Articles.id_nr
+            WHERE Articles.year = '$year' AND Articles.category = '$sub' GROUP BY Keywords.keyword";
+    $sql_subtotal = "SELECT count(DISTINCT Keywords.identifier) as total FROM Keywords INNER JOIN Articles ON Keywords.id_nr=Articles.id_nr
+            WHERE Articles.year = $year AND Articles.category = '$sub'";
     $lines = file('./csv/stopwords.csv', FILE_IGNORE_NEW_LINES);
 }
 

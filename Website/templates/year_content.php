@@ -14,7 +14,7 @@
            </div>
 <?php
     include './db_config.php';
-    $sql_total = "SELECT count(*) as totaal from artikelen where category = '$sub'";
+    $sql_total = "SELECT count(*) as totaal from Articles where category = '$sub'";
     $result_total = $dbh->query($sql_total);
     $sub = $_GET['sub'];
     if ($sub == 'spaansegriep') {
@@ -34,10 +34,10 @@
         $year = $_GET['year'];
 
 
-    $sql_years = "SELECT year, count(*) as artikelen FROM artikelen WHERE year = $year AND category = '$sub' GROUP BY year";
-    $sql_keywords = "SELECT keywords, count(*) as keyword_count FROM keywords INNER JOIN artikelen ON keywords.id_nr =artikelen.id_nr
-                    WHERE artikelen.year = $year AND artikelen.category = '$sub' GROUP BY keywords.keywords";
-    $sql_bow = "SELECT year, bag_of_words FROM artikelen WHERE year = $year AND category = '$sub' GROUP BY year";
+    $sql_years = "SELECT year, count(*) as artikelen FROM Articles WHERE year = '$year' AND category = '$sub' GROUP BY year";
+    $sql_keywords = "SELECT keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =artikelen.id_nr
+                    WHERE Articles.year = '$year' AND Articles.category = '$sub' GROUP BY Keywords.keyword";
+    $sql_bow = "SELECT year, bag_of_words FROM Articles WHERE year = '$year' AND category = '$sub' GROUP BY year";
 
     $result_years = $dbh->query($sql_years);
     $result_keywords =  $dbh->query($sql_keywords);
@@ -83,10 +83,10 @@
 
     else {
         include './db_config.php';
-	$sql_years = "SELECT year, count(*) as artikelen FROM artikelen WHERE category = '$sub' GROUP BY year";
-        $sql_bow = "SELECT bag_of_words FROM artikelen WHERE category = '$sub'";
-        $sql_keywords = "SELECT keywords, count(*) as keyword_count FROM keywords INNER JOIN artikelen ON keywords.id_nr =artikelen.id_nr
-                    WHERE artikelen.category = '$sub' GROUP BY keywords.keywords";
+	$sql_years = "SELECT year, count(*) as artikelen FROM Articles WHERE category = '$sub' GROUP BY year";
+        $sql_bow = "SELECT bag_of_words FROM Articles WHERE category = '$sub'";
+        $sql_keywords = "SELECT keyword, count(*) as keyword_count FROM Keywords INNER JOIN Articles ON Keywords.id_nr =Articles.id_nr
+                    WHERE Articles.category = '$sub' GROUP BY Keywords.keyword";
         $result_bow = $dbh->query($sql_bow);
         $lines = file('./csv/stopwords.csv', FILE_IGNORE_NEW_LINES);
         

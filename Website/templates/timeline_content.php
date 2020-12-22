@@ -13,7 +13,7 @@
     include './db_config.php';
     
     // Define the database query
-    $query =  "SELECT  year, count(*) as artikelen FROM artikelen WHERE category = '$sub' GROUP BY year ORDER BY year DESC";
+    $query =  "SELECT  year, count(*) as artikelen FROM Articles WHERE category = '$sub' GROUP BY year ORDER BY year DESC";
     $result_years = $dbh->query($query);
     // Close the connection
     $dbh = null; 
