@@ -13,7 +13,7 @@ This code can be used to replicate the website. This also enables you to make  a
 or you can improve our website! Please don't hesitate to share your projects with us, we would be delighted to hear about them!
 
 Due to copyright laws, the original database of the website could not be made available. 
-Therefore, we will provide a database with a limited amount of newspaper articles in the near future. 
+Therefore, we have provided a database with a limited amount of newspaper articles in the near future. 
 
 ## Jupyter Notebooks
 If you just want to play with the  data and the visualisations that are provided on the website, you can use the Jupyter Notebooks (https://jupyter.org/) and the test datasets. The programming language used in the notebooks is Python. 
