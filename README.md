@@ -1,4 +1,4 @@
-# Delpher demo site
+# Toolbox Delpher demo site
 This repository contains several features belonging to the website http://delpher_demo.kbresearch.nl/
 
 The following items are present:
